@@ -1,0 +1,23 @@
+{
+  "name": "combiner",
+  "version": "0.0.1",
+  "description": "combine your js code use /* requires */ comments",
+  "main": "./combiner.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/darkfe/combiner.git"
+  },
+  "keywords": [
+    "combin",
+    "concat",
+    "javascript"
+  ],
+  "dependencies": {
+     "nomnom": ">= 1.0.0"
+  },
+  "bin" : "./cli.js",
+  "author": "walterzhang",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "87e79079d97d402a312e9af46b414f1f90bff67a"
+}
