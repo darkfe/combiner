@@ -1,7 +1,7 @@
-# Combiner
+# JSCombiner
 ========
 
-Combiner is similar like nzakas's **combiner** tools.
+JSCombiner is similar like nzakas's **combiner** tools.
 So, your can see he's introducing for this tools idea.
 <http://www.nczonline.net/blog/2009/09/22/introducing-combiner-a-javascriptcss-concatenation-tool/>
 
@@ -11,7 +11,7 @@ But, your need to provide the entry file name of the dependency start, this is d
 
 If you use [npm](https://github.com/isaacs/npm):
 
-    npm install combiner
+    npm install jscombiner
 
 If you don't use npm, clone this repository or download the latest version using the GitHub repository Downloads link.
 
@@ -19,17 +19,17 @@ If you don't use npm, clone this repository or download the latest version using
 
 This module contains one function called `combiner()`:
 
-    > var combiner = require('combiner').combiner;
-    > combiner({
+    > var jscombiner = require('jscombiner').combiner;
+    > jscombiner({
 			entryFile : '/path/to/main.js',
 			delimiter : '',
 			banner : '',
 			basePath : '' 
       });
 
-It also adds the `combiner` command:
+It also adds the `jscombiner` command:
 
-    $ packer -h
+    $ jscombiner -h
     usage: <script> [options]
 
 	Options:
@@ -39,7 +39,7 @@ It also adds the `combiner` command:
 	   -d, --delimiter     mutilple file delimiter
 	   -b, --banner        all code top banner comments
 
-    $ combiner -e main.js 
+    $ jscombiner -e main.js 
 
 
 

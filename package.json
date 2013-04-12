@@ -1,5 +1,5 @@
 {
-  "name": "combiner",
+  "name": "jscombiner",
   "version": "0.0.1",
   "description": "combine your js code use /* requires */ comments",
   "main": "./combiner.js",
