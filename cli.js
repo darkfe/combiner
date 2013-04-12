@@ -27,11 +27,13 @@ var args = require('nomnom').opts({
     }
 }).parseArgs();
 
-args.delimiter = args.delimiter
-.replace(/\\n/g,'\n')
-.replace(/\\r/g,'\r')
-.replace(/\\t/g,'\t')
-.replace(/\\f/g,'\f')
+if(args.delimiter){
+	args.delimiter = args.delimiter
+	.replace(/\\n/g,'\n')
+	.replace(/\\r/g,'\r')
+	.replace(/\\t/g,'\t')
+	.replace(/\\f/g,'\f')
+}
 
 if(args.entry_file){
 	var result = combiner({
