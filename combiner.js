@@ -1,13 +1,12 @@
-
-
 /**
- config = {
+config = {
 	entryFile : '',
 	basePath : '',
 	delimiter : '',
 	banner : ''
- }
- */
+}
+*/
+
 var os = require('os')
 var EOL = os.EOL;
 
@@ -37,49 +36,60 @@ function combiner(config){
 		}
 
 		if(existFiles[filePath]){
-			return;
+			return '';
 		}
 
 		existFiles[filePath] = 1;
 
-		var fileContent = fs.readFileSync(filePath);
-		var pathPatt = /^[\r\n\s]*\/\*\s*(?:req|requires)\s+([^*\s]+)\s*\*\//img;
-		var currentMatch = null;
+		var fileContent = fs.readFileSync(filePath,'utf-8');
 
-		while(currentMatch = pathPatt.exec(fileContent)){
+		var parsePatt = /'(?:\\.|[^'])*'|"(?:\\.|[^"])*"|\/\/.*$|\/\*[\S\s]*?\*\/\s*/mg;
 
-			var dependFiles = currentMatch[1].split(',');
+		var reqFilePatt = /^\/\*\s*req(?:uire)?\s*([^,\s]+(?:\s*,\s*[^,\s]+)*)\s*\*\/\s*$/i;
 
-			var result = dependFiles.every(function(dependFile,index){
+		fileContent = fileContent.replace(parsePatt,function($match){
 
-				if(basePath){
-					dependFile = basePath + dependFile;
+			var matchFiles;
+			if(
+				$match.indexOf('/*')===0 && 
+				(matchFiles = $match.match(reqFilePatt)) &&
+				matchFiles[1]
+			){
+
+				var dependFiles = matchFiles[1].split(/\s*,\s*/);
+
+				var result = dependFiles.map(function(dependFile){
+
+					if(basePath){
+						dependFile = basePath + dependFile.trim();
+					}else{
+						dependFile = startFilePath + dependFile.trim();
+					}
+
+					var fileContent = dependCombin(dependFile);
+
+					return fileContent ;
+
+				}).join(config.delimiter);
+
+
+				if(result){
+					return result + config.delimiter + $match;
 				}else{
-					dependFile = startFilePath + dependFile;
+					return $match;
 				}
 
-				if(dependCombin(dependFile) === false){
-					return false;
-				}
-
-				return true;
-			});
-
-			if(result === false){
-				return result;
+			}else{
+				return $match;
 			}
-		}
+		});
 
-		resultCode.push(fileContent);
-
-		return true;
+		return fileContent;
 	}
 
 	var realPath = path.resolve(entryFile);
 
-	dependCombin(realPath);
-
-	return resultCode.join(config.delimiter);
+	return dependCombin(realPath);
 }
 
 

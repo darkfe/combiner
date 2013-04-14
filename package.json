@@ -12,8 +12,12 @@
     "concat",
     "javascript"
   ],
+  "scripts" : {
+    "test" : "node node_modules/nodeunit/bin/nodeunit test/index.js"
+  },
   "dependencies": {
-     "nomnom": ">= 1.0.0"
+     "nomnom": ">= 1.0.0",
+     "grunt": "~0.4.1"
   },
   "bin" : "./cli.js",
   "author": "walterzhang",
