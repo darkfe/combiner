@@ -7,10 +7,10 @@ config = {
 }
 */
 
-var os = require('os')
+var os = require('os');
 var EOL = os.EOL;
 
-function combiner(config){	
+function combiner(config){
 
 	var path = require('path');
 	var fs = require('fs');
@@ -18,8 +18,6 @@ function combiner(config){
 	var entryFile = config.entryFile;
 	var delimiter = config.delimiter;
 	var existFiles = {};
-	var resultCode = [];
-
 
 	function dependCombin(filePath){
 
@@ -66,15 +64,13 @@ function combiner(config){
 						dependFile = startFilePath + dependFile.trim();
 					}
 
-					var fileContent = dependCombin(dependFile);
+					return dependCombin(dependFile);
 
-					return fileContent ;
-
-				}).join(config.delimiter);
+				}).join(delimiter);
 
 
 				if(result){
-					return result + config.delimiter + $match;
+					return result + delimiter + $match;
 				}else{
 					return $match;
 				}
